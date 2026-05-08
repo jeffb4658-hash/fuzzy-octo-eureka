@@ -1,0 +1,16 @@
+{
+  "name": "titan-bot",
+  "version": "1.0.0",
+  "description": "Titan balance bot (Node.js, Express)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "node-fetch": "^3.3.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
