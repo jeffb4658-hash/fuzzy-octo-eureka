@@ -1,0 +1,21 @@
+name: Project Titan Automator
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  run-automation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Trigger Webhooks and Deployment
+        run: |
+          echo "Initiating automated fulfillment..."
+          # Add specific webhook triggers below if needed
+          curl -X POST https://api.render.com/deploy/your-service-id-here
+          
