@@ -1,4 +1,7 @@
-name: TITAN TRADER — Live Bot
+name:- name: Write API credentials
+  run: |
+    mkdir -p titan-bot
+    echo '${{ secrets.TITAN }}' > titan-bot/cdp_api_key.json TITAN TRADER — Live Bot
 
 on:
   workflow_dispatch:
