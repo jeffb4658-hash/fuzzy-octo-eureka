@@ -1,0 +1,37 @@
+name: TITAN TRADER — Live Bot
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'titan-bot/**'
+
+jobs:
+  trade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Write API credentials
+        run: |
+          echo '${{ secrets.TITAN }}' > titan-bot/cdp_api_key.json
+
+      - name: Run Titan Trader
+        run: node titan-bot/index.js
+
+      - name: Upload trade logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trade-logs-${{ github.run_number }}
+          path: |
+            titan-bot/trades.log
+            titan-bot/performance.json
+          retention-days: 30
