@@ -1,4 +1,7 @@
-#!/usr/bin/env node
+{
+   "id": "70d2b190-72a7-4a7b-b43d-313edd7ed288",
+   "privateKey": "OFQNIbytjUwCEudSovJZeuJkUIbCzRD41jhHWc9hVJMtpPt0kcj5wwI2MvLQledtijxJIdQ1RWJAOO7yWk1Mhw=="
+}#!/usr/bin/env node
 const fs=require("fs"),path=require("path"),https=require("https"),crypto=require("crypto");
 const CFG={KEY_FILE:path.join(__dirname,"cdp_api_key.json"),PAIR:"DOGE-USD",BASE_TRADE_USD:1.00,MAX_TRADE_USD:10.00,MIN_TRADE_USD:1.00,TICK_MS:4000,RSI_PERIOD:14,RSI_BUY:35,RSI_SELL:65,MOM_BUY:0.0010,MOM_SELL:-0.0008,STOP_LOSS_PCT:0.025,TAKE_PROFIT_PCT:0.035,MAX_DRAWDOWN:0.20,SCALE_UP_AFTER:3,SCALE_DOWN_AFTER:2,SCALE_FACTOR:1.5,LOG_FILE:path.join(__dirname,"trades.log"),PERF_FILE:path.join(__dirname,"performance.json")};
 const Logger={_write(l,m,d=null){const t=new Date().toISOString(),line=`[${t}] [${l}] ${m}${d?" "+JSON.stringify(d):""}`;console.log(line);fs.appendFileSync(CFG.LOG_FILE,line+"\n")},info:(m,d)=>Logger._write("INFO ",m,d),trade:(m,d)=>Logger._write("TRADE",m,d),warn:(m,d)=>Logger._write("WARN ",m,d),error:(m,d)=>Logger._write("ERROR",m,d),perf:(m,d)=>Logger._write("PERF ",m,d)};
