@@ -31,3 +31,4 @@ main().catch(e=>{Logger.error("Fatal: "+e.message);process.exit(1)}); env:
             titan-bot/trades.log
             titan-bot/performance.json
           retention-days: 30
+          
