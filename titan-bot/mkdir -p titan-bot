@@ -1,4 +1,0 @@
-- name: Write API credentials
-  run: |
-    mkdir -p titan-bot
-    echo '${{ secrets.TITAN }}' > titan-bot/cdp_api_key.json
