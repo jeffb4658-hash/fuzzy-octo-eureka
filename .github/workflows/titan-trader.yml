@@ -42,20 +42,4 @@ jobs:
           path: |
             titan-bot/trades.log
             titan-bot/performance.json
-          retention-days: 30      - name: Upload trade logs
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: trade-logs-${{ github.run_number }}
-          path: |
-            titan-bot/trades.log
-            titan-bot/performance.json
-          retention-days: 30      - name: Upload trade logs
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: trade-logs-${{ github.run_number }}
-          path: |
-            titan-bot/trades.log
-            titan-bot/performance.json
           retention-days: 30
