@@ -1,12 +1,9 @@
-
 name: TITAN TRADER - Live Bot
 
 on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths:
-      - 'titan-bot/**'
 
 jobs:
   trade:
@@ -23,7 +20,16 @@ jobs:
       - name: Write API credentials
         run: |
           mkdir -p titan-bot
-          echo '${{ secrets.TITAN }}' > titan-bot/cdp_api_key.json
+          python3 -c "
+          import os, json
+          raw = os.environ['TITAN']
+          data = json.loads(raw)
+          with open('titan-bot/cdp_api_key.json', 'w') as f:
+              json.dump(data, f)
+          print('Credentials written OK')
+          "
+        env:
+          TITAN: ${{ secrets.TITAN }}
 
       - name: Run Titan Trader
         run: node titan-bot/index.js
