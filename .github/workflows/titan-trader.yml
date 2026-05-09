@@ -1,40 +1,10 @@
-name: TITAN TRADER - Live Bot
-
-on:
-  workflow_dispatch:
-  push:
-    branches: [main]
-
-jobs:
-  trade:
-    runs-on: ubuntu-latest
-    timeout-minutes: 350
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Write API credentials
+- name: Write API credentials
         env:
           TITAN: ${{ secrets.TITAN }}
         run: |
           mkdir -p titan-bot
-          python3 -c "
-          import os, json
-          raw = os.environ['TITAN']
-          data = json.loads(raw)
-          with open('titan-bot/cdp_api_key.json', 'w') as f:
-              json.dump(data, f)
-          print('Credentials written OK')
-          "
-
-      - name: Run Titan Trader
-        run: node titan-bot/index.js
-
-      - name: Upload trade logs
+          printf '%s' "$TITAN" > titan-bot/cdp_api_key.json
+          echo "File written, size: $(wc -c < titan-bot/cdp_api_key.json) bytes"      - name: Upload trade logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
