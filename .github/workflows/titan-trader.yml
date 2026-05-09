@@ -18,6 +18,8 @@ jobs:
           node-version: '20'
 
       - name: Write API credentials
+        env:
+          TITAN: ${{ secrets.TITAN }}
         run: |
           mkdir -p titan-bot
           python3 -c "
@@ -28,13 +30,19 @@ jobs:
               json.dump(data, f)
           print('Credentials written OK')
           "
-        env:
-          TITAN: ${{ secrets.TITAN }}
 
       - name: Run Titan Trader
         run: node titan-bot/index.js
 
       - name: Upload trade logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trade-logs-${{ github.run_number }}
+          path: |
+            titan-bot/trades.log
+            titan-bot/performance.json
+          retention-days: 30      - name: Upload trade logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
